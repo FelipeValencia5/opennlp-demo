@@ -1,5 +1,4 @@
-Code to accompany Phil's June 2015 Tri-JUG presentation
-on OpenNLP.
+Práctica 2 - Jenkins 
 
 # Notes:
 
