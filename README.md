@@ -3,7 +3,7 @@ on OpenNLP.
 
 # Notes:
 
-TBD...
+TBD
 
 # Links:
 
