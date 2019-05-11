@@ -12,17 +12,28 @@ import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 
+/**
+ * Tokenizer: Clase que permite cortar una oración en partes mas pequeñas (tokens)
+ * 
+ * @author Felipe Valencia - fvalenci@ull.edu.es
+ * @version 11.05.2019 
+ */
 
 public class TokenizerMain{
-
-	String texto="";
-
-	public void leerArchivo() {
+	
+	private final String ruta="src/main/resources/archivo.txt";
+	
+	/**
+	 * Metodo que obtiene el archivo dada en el objeto ruta
+	 * @return texto: texto de todas las lineas del archivo
+	 */
+	public String leerArchivo() {
 		File archivo = null;
 		FileReader fr = null;
-		BufferedReader br = null;		
+		BufferedReader br = null;
+		String texto="";		
 		try {
-			archivo = new File ("src/main/resources/archivo.txt");
+			archivo = new File (ruta);
 			fr = new FileReader (archivo);
 			br = new BufferedReader(fr);
 			String linea;
@@ -40,20 +51,20 @@ public class TokenizerMain{
 			}catch (Exception e){
 				e.getMessage();
 			}
-		}		
+		}
+		return texto;
 	}
-
-	public void Tokenizer() throws Exception{
-		// The Provided Model
-		// InputStream modelIn = new FileInputStream( "models/en-token.bin" );
-
-		// The model we trained
+	
+	/**
+	 * Imprime cada uno de los componentes de un texto cortados por tokens
+	 * @param texto: texto que se quiere cortar 
+	 * @throws Exception: captura la excepcion de no poder abrir el archivo del modelo
+	 */
+	public void Tokenizer(String texto) throws Exception{
 		InputStream modelIn = new FileInputStream( "models/en-token.model" );
-
 		try{
 			TokenizerModel model = new TokenizerModel( modelIn );
 			Tokenizer tokenizer = new TokenizerME(model);
-			/* note what happens with the "three depending on which model you use */
 			String[] tokens = tokenizer.tokenize
 					(texto);
 
@@ -80,7 +91,7 @@ public class TokenizerMain{
 
 	public static void main( String[] args ) throws Exception{
 		TokenizerMain tokenizerMain = new TokenizerMain();
-		tokenizerMain.leerArchivo();
-		tokenizerMain.Tokenizer();
+		String texto=tokenizerMain.leerArchivo();
+		tokenizerMain.Tokenizer(texto);
 	}
 }
