@@ -22,23 +22,56 @@ import opennlp.tools.tokenize.TokenizerModel;
 public class TokenizerMain{
 	
 	private final String ruta="src/main/resources/archivo.txt";
+	public File archivo = null;
+	public String texto = "";	
+	public String[] tokens = null;
 	
+	/**
+	 * Getter
+	 * @return: devuelve el valor que contiene archivo
+	 */
+	public File getArchivo() {
+		return archivo;
+	}
+	
+	/**
+	 * Getter
+	 * @return: devuelve el valor que contiene texto
+	 */
+	public String getTexto() {
+		return texto;
+	}
+	
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+
+	/**
+	 * Getter
+	 * @return: obtiene los valores del arreglo de tokens
+	 */
+	public String[] getTokens() {
+		return tokens;
+	}
+	
+	public void setTokens(String[] tokens) {
+		this.tokens = tokens;
+	}
+
 	/**
 	 * Metodo que obtiene el archivo dada en el objeto ruta
 	 * @return texto: texto de todas las lineas del archivo
 	 */
 	public String leerArchivo() {
-		File archivo = null;
 		FileReader fr = null;
 		BufferedReader br = null;
-		String texto="";		
 		try {
 			archivo = new File (ruta);
 			fr = new FileReader (archivo);
 			br = new BufferedReader(fr);
 			String linea;
 			while((linea=br.readLine())!=null) {
-				texto=texto+linea;
+				setTexto(getTexto()+linea);
 			}
 		}
 		catch(Exception e){
@@ -52,7 +85,7 @@ public class TokenizerMain{
 				e.getMessage();
 			}
 		}
-		return texto;
+		return getTexto();
 	}
 	
 	/**
@@ -65,8 +98,7 @@ public class TokenizerMain{
 		try{
 			TokenizerModel model = new TokenizerModel( modelIn );
 			Tokenizer tokenizer = new TokenizerME(model);
-			String[] tokens = tokenizer.tokenize
-					(texto);
+			setTokens(tokenizer.tokenize(texto));
 
 			for( String token : tokens ){
 				System.out.println( token );
